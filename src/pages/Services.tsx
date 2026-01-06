@@ -1,5 +1,6 @@
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
+import AnimatedStat from "@/components/AnimatedStat";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
@@ -134,26 +135,33 @@ const Services = () => {
               <Card className="border-accent/30 shadow-xl">
                 <CardContent className="p-0">
                   <div className="grid md:grid-cols-4 divide-y md:divide-y-0 md:divide-x divide-border">
-                    <div className="p-8 text-center">
-                      <Percent className="h-10 w-10 mx-auto mb-4 text-accent" />
-                      <p className="text-4xl font-bold text-primary mb-2">2.85%</p>
-                      <p className="text-sm text-muted-foreground">Annual Interest Rate</p>
-                    </div>
-                    <div className="p-8 text-center">
-                      <DollarSign className="h-10 w-10 mx-auto mb-4 text-accent" />
-                      <p className="text-4xl font-bold text-primary mb-2">$100K</p>
-                      <p className="text-sm text-muted-foreground">Minimum Loan Amount</p>
-                    </div>
-                    <div className="p-8 text-center">
-                      <TrendingUp className="h-10 w-10 mx-auto mb-4 text-accent" />
-                      <p className="text-4xl font-bold text-primary mb-2">$1B+</p>
-                      <p className="text-sm text-muted-foreground">Maximum Loan Amount</p>
-                    </div>
-                    <div className="p-8 text-center">
-                      <Clock className="h-10 w-10 mx-auto mb-4 text-accent" />
-                      <p className="text-4xl font-bold text-primary mb-2">48hrs</p>
-                      <p className="text-sm text-muted-foreground">Initial Response Time</p>
-                    </div>
+                    <AnimatedStat 
+                      icon={Percent} 
+                      end={2.85} 
+                      suffix="%" 
+                      label="Annual Interest Rate"
+                      isDecimal
+                    />
+                    <AnimatedStat 
+                      icon={DollarSign} 
+                      end={100} 
+                      prefix="$" 
+                      suffix="K" 
+                      label="Minimum Loan Amount"
+                    />
+                    <AnimatedStat 
+                      icon={TrendingUp} 
+                      end={1} 
+                      prefix="$" 
+                      suffix="B+" 
+                      label="Maximum Loan Amount"
+                    />
+                    <AnimatedStat 
+                      icon={Clock} 
+                      end={48} 
+                      suffix="hrs" 
+                      label="Initial Response Time"
+                    />
                   </div>
                 </CardContent>
               </Card>
