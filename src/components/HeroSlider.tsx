@@ -61,7 +61,7 @@ const HeroSlider = () => {
                           asChild
                           size="lg"
                           variant="outline"
-                          className="border-primary-foreground text-primary-foreground hover:bg-primary-foreground hover:text-primary"
+                          className="border-2 border-white text-white bg-white/10 hover:bg-white hover:text-primary"
                         >
                           <Link to="/register">Join as Member</Link>
                         </Button>
