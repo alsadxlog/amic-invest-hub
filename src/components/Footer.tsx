@@ -1,4 +1,4 @@
-import { Mail, Phone, MapPin } from "lucide-react";
+import { Mail, Phone, MapPin, Globe } from "lucide-react";
 import { Link } from "react-router-dom";
 
 const Footer = () => {
@@ -34,14 +34,26 @@ const Footer = () => {
           </div>
 
           <div>
-            <h4 className="font-semibold mb-4 text-accent">Contact</h4>
+            <h4 className="font-semibold mb-4 text-accent">Head Office</h4>
             <div className="space-y-3 text-sm">
               <div className="flex items-start space-x-2">
                 <MapPin className="h-4 w-4 mt-1 text-accent flex-shrink-0" />
                 <span className="text-primary-foreground/80">
-                  Headquarters: Muscat, Oman<br />
-                  Office: Istanbul, Turkey
+                  Flt. 505 5th Floor Office Al Saladin Tower<br />
+                  Dohat Al Adab St., AL Khuwair<br />
+                  Muscat, Sultanate of Oman
                 </span>
+              </div>
+              <div className="flex items-center space-x-2">
+                <Globe className="h-4 w-4 text-accent flex-shrink-0" />
+                <a
+                  href="https://www.alsadinmuscatinvest.com"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="hover:text-accent transition-colors text-primary-foreground/80"
+                >
+                  www.alsadinmuscatinvest.com
+                </a>
               </div>
               <div className="flex items-center space-x-2">
                 <Mail className="h-4 w-4 text-accent flex-shrink-0" />
@@ -54,7 +66,12 @@ const Footer = () => {
               </div>
               <div className="flex items-center space-x-2">
                 <Phone className="h-4 w-4 text-accent flex-shrink-0" />
-                <span className="text-primary-foreground/80">+968 XXXX XXXX</span>
+                <a
+                  href="tel:+96875074061"
+                  className="hover:text-accent transition-colors text-primary-foreground/80"
+                >
+                  +968-750-7406-1
+                </a>
               </div>
             </div>
           </div>

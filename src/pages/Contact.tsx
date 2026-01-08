@@ -7,7 +7,8 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/hooks/use-toast";
-import { Mail, Phone, MapPin } from "lucide-react";
+import { supabase } from "@/integrations/supabase/client";
+import { Mail, Phone, MapPin, Globe } from "lucide-react";
 
 const Contact = () => {
   const { toast } = useToast();
@@ -27,15 +28,31 @@ const Contact = () => {
     e.preventDefault();
     setIsSubmitting(true);
 
-    // Simulate form submission
-    setTimeout(() => {
+    try {
+      const { error } = await supabase.functions.invoke("send-contact-email", {
+        body: {
+          ...formData,
+          type: "contact",
+        },
+      });
+
+      if (error) throw error;
+
       toast({
         title: "Message Sent!",
         description: "Thank you for contacting us. We'll respond within 24 hours.",
       });
       setFormData({ name: "", email: "", subject: "", message: "" });
+    } catch (error: any) {
+      console.error("Error sending message:", error);
+      toast({
+        title: "Error",
+        description: "Failed to send message. Please try again.",
+        variant: "destructive",
+      });
+    } finally {
       setIsSubmitting(false);
-    }, 1000);
+    }
   };
 
   return (
@@ -119,22 +136,33 @@ const Contact = () => {
               <div className="space-y-6">
                 <Card className="border-accent/20">
                   <CardHeader>
-                    <CardTitle className="font-serif text-2xl">Contact Information</CardTitle>
+                    <CardTitle className="font-serif text-2xl">Head Office</CardTitle>
                   </CardHeader>
                   <CardContent className="space-y-4">
                     <div className="flex items-start space-x-3">
                       <MapPin className="h-5 w-5 text-accent mt-1 flex-shrink-0" />
                       <div>
-                        <p className="font-semibold text-primary">Headquarters</p>
-                        <p className="text-sm text-muted-foreground">Muscat, Oman</p>
+                        <p className="font-semibold text-primary">Address</p>
+                        <p className="text-sm text-muted-foreground">
+                          Flt. 505 5th Floor Office Al Saladin Tower<br />
+                          Dohat Al Adab St., AL Khuwair<br />
+                          Muscat, Sultanate of Oman
+                        </p>
                       </div>
                     </div>
 
-                    <div className="flex items-start space-x-3">
-                      <MapPin className="h-5 w-5 text-accent mt-1 flex-shrink-0" />
+                    <div className="flex items-center space-x-3">
+                      <Globe className="h-5 w-5 text-accent flex-shrink-0" />
                       <div>
-                        <p className="font-semibold text-primary">Turkey Office</p>
-                        <p className="text-sm text-muted-foreground">Istanbul, Turkey</p>
+                        <p className="font-semibold text-primary">Website</p>
+                        <a
+                          href="https://www.alsadinmuscatinvest.com"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="text-sm text-muted-foreground hover:text-accent transition-colors"
+                        >
+                          www.alsadinmuscatinvest.com
+                        </a>
                       </div>
                     </div>
 
@@ -155,7 +183,12 @@ const Contact = () => {
                       <Phone className="h-5 w-5 text-accent flex-shrink-0" />
                       <div>
                         <p className="font-semibold text-primary">Phone</p>
-                        <p className="text-sm text-muted-foreground">+968 XXXX XXXX</p>
+                        <a
+                          href="tel:+96875074061"
+                          className="text-sm text-muted-foreground hover:text-accent transition-colors"
+                        >
+                          +968-750-7406-1
+                        </a>
                       </div>
                     </div>
                   </CardContent>

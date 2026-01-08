@@ -39,7 +39,8 @@ const Register = () => {
     setIsSubmitting(true);
 
     try {
-      const { error } = await supabase.from("users").insert([
+      // Save to database
+      const { error: dbError } = await supabase.from("users").insert([
         {
           name: formData.fullName,
           email: formData.email,
@@ -50,7 +51,20 @@ const Register = () => {
         },
       ]);
 
-      if (error) throw error;
+      if (dbError) throw dbError;
+
+      // Send email notification
+      await supabase.functions.invoke("send-contact-email", {
+        body: {
+          name: formData.fullName,
+          email: formData.email,
+          country: formData.country,
+          phone: formData.phone,
+          investmentType: formData.investmentType,
+          message: formData.message,
+          type: "registration",
+        },
+      });
 
       toast({
         title: "Registration Successful!",
